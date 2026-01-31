@@ -1,7 +1,18 @@
 Hummingbird
 ===========
 
-NOTE: Hummingbird is no longer under active development.
+NOTE: This fork of Hummingbird is under part time development.
+
+Development goals are as follows:
+
+* First class observability at any scale
+* Zero trust architecture
+* Support commodity/NAS hardware for home & small business use cases
+* Support Kubernetes native design for medium to large businesses
+* Shift the architecture as needed
+  * No requirement to remain comaptible with existing Swift/Hummingbird deployments
+
+---
 
 Hummingbird is a scalable, performant distributed object storage system written in Go
 that is also a drop in replacement for [OpenStack Swift](http://swift.openstack.org) with minimal migration.
