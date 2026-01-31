@@ -1158,34 +1158,44 @@ func sqliteCreateContainer(containerFile string, account string, container strin
 	if err := tfp.Chmod(0644); err != nil {
 		return err
 	}
-	defer tfp.Close()
 	tempFile := tfp.Name()
+	tfp.Close()
 	dbConn, err := sql.Open("sqlite3_hummingbird", "file:"+tempFile+"?psow=1&_txlock=immediate&mode=rwc")
 	if err != nil {
 		return err
 	}
-	defer dbConn.Close()
 	tx, err := dbConn.Begin()
 	if err != nil {
+		dbConn.Close()
 		return err
 	}
-	defer tx.Rollback()
 	if _, err := tx.Exec(objectTableScript + policyStatTableScript + policyStatTriggerScript +
 		containerInfoTableScript + containerStatViewScript + syncTableScript); err != nil {
+		tx.Rollback()
+		dbConn.Close()
 		return err
 	}
 	if _, err := tx.Exec(`INSERT INTO container_info (account, container, created_at, id, put_timestamp,
 						  status_changed_at, storage_policy_index, metadata) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
 		account, container, common.GetTimestamp(), common.UUID(), putTimestamp,
 		putTimestamp, policyIndex, string(serializedMetadata)); err != nil {
+		tx.Rollback()
+		dbConn.Close()
 		return err
 	}
 	if _, err := tx.Exec("INSERT INTO policy_stat (storage_policy_index) VALUES (?)", policyIndex); err != nil {
+		tx.Rollback()
+		dbConn.Close()
 		return err
 	}
 	if err := tx.Commit(); err != nil {
+		dbConn.Close()
 		return err
 	}
+	// Close the database connection before renaming to ensure the WAL is
+	// checkpointed into the main database file. Otherwise the rename moves
+	// only the .db file, orphaning the WAL and SHM files under the temp name.
+	dbConn.Close()
 	if err := os.Rename(tempFile, containerFile); err != nil {
 		return err
 	}
