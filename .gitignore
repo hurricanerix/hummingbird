@@ -1,20 +1,31 @@
-# Mac related files
-.DS_Store
+# Allowlisting gitignore template for GO projects prevents us
+# from adding various unwanted local files, such as generated
+# files, developer configurations or IDE-specific files etc.
+#
+# Recommended: Go.AllowList.gitignore
 
-# Binaries for programs and plugins
-*.exe
-*.dll
-*.so
-*.dylib
+# Ignore everything
+*
 
-# Test binary, build with `go test -c`
-*.test
+# But not these files...
+!/.gitignore
 
-# Output of the go coverage tool
-*.out
+!*.go
+!go.sum
+!go.mod
 
-# vim
-*.sw?
+!Makefile
+!.probetests
+!.swift_func_excludes
+!.travis.yml
+!*.conf
+!middleware/testdata/*
 
-#Hummingbird related build directory
-bin
+!README.md
+!LICENSE
+
+!docs/**/*.md
+!docs/**/*.png
+
+# ...even if they are in subdirectories
+!*/
