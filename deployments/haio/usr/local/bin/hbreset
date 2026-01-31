@@ -1,0 +1,60 @@
+#!/bin/bash
+
+if hash systemctl 2>/dev/null ; then
+    systemctl stop hummingbird-proxy &
+    systemctl stop hummingbird-account1 &
+    systemctl stop hummingbird-account-replicator1 &
+    systemctl stop hummingbird-container1 &
+    systemctl stop hummingbird-container-replicator1 &
+    systemctl stop hummingbird-object1 &
+    systemctl stop hummingbird-object-replicator1 &
+    systemctl stop hummingbird-account2 &
+    systemctl stop hummingbird-account-replicator2 &
+    systemctl stop hummingbird-container2 &
+    systemctl stop hummingbird-container-replicator2 &
+    systemctl stop hummingbird-object2 &
+    systemctl stop hummingbird-object-replicator2 &
+    systemctl stop hummingbird-account3 &
+    systemctl stop hummingbird-account-replicator3 &
+    systemctl stop hummingbird-container3 &
+    systemctl stop hummingbird-container-replicator3 &
+    systemctl stop hummingbird-object3 &
+    systemctl stop hummingbird-object-replicator3 &
+    systemctl stop hummingbird-account4 &
+    systemctl stop hummingbird-account-replicator4 &
+    systemctl stop hummingbird-container4 &
+    systemctl stop hummingbird-container-replicator4 &
+    systemctl stop hummingbird-object4 &
+    systemctl stop hummingbird-object-replicator4 &
+    systemctl stop hummingbird-andrewd &
+    wait
+else
+    hummingbird stop all
+fi
+find /var/log/hummingbird /var/cache/swift -type f -exec rm -f {} \;
+mountpoint -q /srv/hb && umount -f /srv/hb || /bin/true
+mkdir -p /srv/hb
+# chmod 0755 /srv
+# chmod 0755 /srv/hb
+truncate -s 5GB /srv/hb-disk
+mkfs.xfs -f /srv/hb-disk
+mount -o loop /srv/hb-disk /srv/hb
+mkdir -p /srv/hb/1/sdb1 /srv/hb/2/sdb2 /srv/hb/3/sdb3 /srv/hb/4/sdb4 /var/cache/swift /var/cache/swift2 /var/cache/swift3 /var/cache/swift4 /var/log/hummingbird /var/run/swift /var/run/hummingbird /var/local/hummingbird
+# chmod 0755 /srv
+# chmod 0755 /var
+# chmod 0755 /var/cache
+# chmod 0755 /var/log
+# chmod 0755 /var/run
+rm -f /var/local/hummingbird/andrewd.db || true
+# chown -R root: /srv/hb /var/cache/swift* /var/run/swift /var/run/hummingbird /var/local/hummingbird
+# chown root:adm /var/log/hummingbird
+if hash systemctl 2>/dev/null ; then
+    systemctl restart memcached
+else
+    service memcached restart
+fi
+if hash systemctl 2>/dev/null ; then
+    systemctl restart syslog || true
+else
+    service syslog restart || true
+fi

@@ -1,0 +1,33 @@
+#!/bin/bash
+
+if hash systemctl 2>/dev/null ; then
+    systemctl $@ hummingbird-proxy &
+    systemctl $@ hummingbird-account1 &
+    systemctl $@ hummingbird-account-replicator1 &
+    systemctl $@ hummingbird-container1 &
+    systemctl $@ hummingbird-container-replicator1 &
+    systemctl $@ hummingbird-object1 &
+    systemctl $@ hummingbird-object-replicator1 &
+    systemctl $@ hummingbird-account2 &
+    systemctl $@ hummingbird-account-replicator2 &
+    systemctl $@ hummingbird-container2 &
+    systemctl $@ hummingbird-container-replicator2 &
+    systemctl $@ hummingbird-object2 &
+    systemctl $@ hummingbird-object-replicator2 &
+    systemctl $@ hummingbird-account3 &
+    systemctl $@ hummingbird-account-replicator3 &
+    systemctl $@ hummingbird-container3 &
+    systemctl $@ hummingbird-container-replicator3 &
+    systemctl $@ hummingbird-object3 &
+    systemctl $@ hummingbird-object-replicator3 &
+    systemctl $@ hummingbird-account4 &
+    systemctl $@ hummingbird-account-replicator4 &
+    systemctl $@ hummingbird-container4 &
+    systemctl $@ hummingbird-container-replicator4 &
+    systemctl $@ hummingbird-object4 &
+    systemctl $@ hummingbird-object-replicator4 &
+    systemctl $@ hummingbird-andrewd &
+    wait
+else
+    hummingbird $@ all
+fi

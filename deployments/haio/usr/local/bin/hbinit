@@ -1,0 +1,37 @@
+#!/bin/bash
+
+apt update
+apt install -y gcc git-core make memcached sqlite3 tar wget xfsprogs
+
+cp -r /tmp/hummingbird/* /etc/hummingbird
+
+if hash systemctl 2>/dev/null ; then
+    systemctl daemon-reload
+fi
+
+hbrings
+hbreset
+
+# hbmain start
+# if [ ! -e ~/swift ] ; then
+#     git clone https://github.com/openstack/swift ~/swift
+# fi
+# mkdir -p /etc/swift
+# chown root: /etc/swift
+# chmod 0755 /etc
+# chmod 0755 /etc/swift
+# cp ~/swift/test/sample.conf /etc/swift/test.conf
+# sudo apt install -y python-boto python-eventlet python-google-compute-engine python-mock python-netifaces python-nose python-nose-exclude python-pastedeploy python-pbr python-pyeclib python-setuptools python-swiftclient python-unittest2 python-xattr
+# if [ "$1" != "skiptests" ] ; then
+#   export BOTO_CONFIG=/dev/null
+#   pushd ~/swift/test/functional
+#   nosetests --exclude-test-file "$HOME/.swift_func_excludes"
+#   popd
+# fi
+# hbmain stop
+
+# tail -9 $0 | cut -f2- -d ' '
+
+# HAIO is ready for use.
+ 
+# See https://github.com/troubling/hummingbird/internal/blob/master/HAIO.md for more info.

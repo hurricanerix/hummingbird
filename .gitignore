@@ -16,14 +16,15 @@
 
 !Makefile
 !.probetests
-!.swift_func_excludes
 !.travis.yml
-!*.conf
-!middleware/testdata/*
+!internal/middleware/testdata/*
+
+!Dockerfile
+!docker-compose.yml
+!deployments/**/*
 
 !README.md
 !LICENSE
-
 !docs/**/*.md
 !docs/**/*.png
 

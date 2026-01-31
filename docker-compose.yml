@@ -1,0 +1,24 @@
+services:
+  haio:
+    build:
+      dockerfile: ./Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./deployments/haio/etc/hummingbird:/tmp/hummingbird:ro
+      - ./deployments/haio/lib/systemd/system:/lib/systemd/system:ro
+      - ./deployments/haio/root/.swift_func_excludes:/root/.swift_func_excludes:ro
+      - ./deployments/haio/usr/local/bin:/usr/local/bin:ro
+      - rings:/etc/hummingbird
+      - storage:/srv/hb/1/sdb1
+    networks:
+      - internal
+    command: ["sh", "-c", "if [ ! -f /etc/hummingbird/.initialized ]; then hbinit && touch /etc/hummingbird/.initialized; fi && hbmain start && tail -f /dev/null"]
+
+networks:
+  internal:
+    driver: bridge
+
+volumes:
+  rings:
+  storage:

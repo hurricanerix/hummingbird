@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd ~/swift/test/functional
+nosetests --exclude-test-file=/root/.swift_func_excludes
