@@ -36,6 +36,7 @@ import (
 	"github.com/troubling/hummingbird/internal/proxyserver/middleware"
 
 	"github.com/justinas/alice"
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/uber-go/tally/v4"
 	promreporter "github.com/uber-go/tally/v4/prometheus"
@@ -73,11 +74,12 @@ func (server *ProxyServer) Finalize() {
 
 func (server *ProxyServer) GetHandler(config conf.Config, metricsPrefix string) http.Handler {
 	obfuscatedPrefix, _ := config.Get("app:proxy-server", "obfuscated_prefix")
+	registry := prometheus.NewRegistry()
 	var metricsScope tally.Scope
 	metricsScope, server.metricsCloser = tally.NewRootScope(tally.ScopeOptions{
 		Prefix:         metricsPrefix,
 		Tags:           map[string]string{},
-		CachedReporter: promreporter.NewReporter(promreporter.Options{}),
+		CachedReporter: promreporter.NewReporter(promreporter.Options{Registerer: registry, Gatherer: registry}),
 		Separator:      promreporter.DefaultSeparator,
 	}, time.Second)
 	router := srv.NewRouter()
@@ -86,7 +88,7 @@ func (server *ProxyServer) GetHandler(config conf.Config, metricsPrefix string) 
 		if op == "-" {
 			op = ""
 		}
-		router.Get(path.Join("/", op, "metrics"), promhttp.Handler())
+		router.Get(path.Join("/", op, "metrics"), promhttp.HandlerFor(registry, promhttp.HandlerOpts{}))
 		router.Get(path.Join("/", op, "loglevel"), server.logLevel)
 		router.Put(path.Join("/", op, "loglevel"), server.logLevel)
 		router.Get(path.Join("/", op, "debug/pprof/:parm"), http.DefaultServeMux)

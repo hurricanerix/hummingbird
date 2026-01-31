@@ -31,6 +31,7 @@ import (
 
 	"github.com/justinas/alice"
 	opentracing "github.com/opentracing/opentracing-go"
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/troubling/hummingbird/internal/client"
 	"github.com/troubling/hummingbird/internal/common"
@@ -585,11 +586,12 @@ func (server *ContainerServer) updateDeviceLocks(seconds int64) {
 
 // GetHandler returns the server's http handler - it sets up routes and instantiates middleware.
 func (server *ContainerServer) GetHandler(config conf.Config, metricsPrefix string) http.Handler {
+	registry := prometheus.NewRegistry()
 	var metricsScope tally.Scope
 	metricsScope, server.metricsCloser = tally.NewRootScope(tally.ScopeOptions{
 		Prefix:         metricsPrefix,
 		Tags:           map[string]string{},
-		CachedReporter: promreporter.NewReporter(promreporter.Options{}),
+		CachedReporter: promreporter.NewReporter(promreporter.Options{Registerer: registry, Gatherer: registry}),
 		Separator:      promreporter.DefaultSeparator,
 	}, time.Second)
 	commonHandlers := alice.New(
@@ -600,7 +602,7 @@ func (server *ContainerServer) GetHandler(config conf.Config, metricsPrefix stri
 		server.AcquireDevice,
 	)
 	router := srv.NewRouter()
-	router.Get("/metrics", promhttp.Handler())
+	router.Get("/metrics", promhttp.HandlerFor(registry, promhttp.HandlerOpts{}))
 	router.Get("/loglevel", server.logLevel)
 	router.Put("/loglevel", server.logLevel)
 	router.Get("/healthcheck", commonHandlers.ThenFunc(server.HealthcheckHandler))
