@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Runs every time the container is started
+# to setup anything needed on start.
+
+if hash systemctl 2>/dev/null ; then
+    systemctl start memcached
+else
+    memcached -d -u memcache -l 127.0.0.1 -p 11211
+fi
+
+hbmain start
+
+tail -f /var/log/hummingbird/*.log /var/log/hummingbird/*.err

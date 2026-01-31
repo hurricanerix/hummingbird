@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Only runs the first time the container is started
+# to do one time setup.
+
+if [ -f /etc/hummingbird/.initialized ]; then
+    exit 0
+fi
+
 apt update
 apt install -y gcc git-core make memcached sqlite3 tar wget xfsprogs
 
@@ -11,6 +18,8 @@ fi
 
 hbrings
 hbreset
+
+touch /etc/hummingbird/.initialized
 
 # hbmain start
 # if [ ! -e ~/swift ] ; then

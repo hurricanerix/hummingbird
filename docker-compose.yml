@@ -13,7 +13,7 @@ services:
       - storage:/srv/hb/1/sdb1
     networks:
       - internal
-    command: ["sh", "-c", "if [ ! -f /etc/hummingbird/.initialized ]; then hbinit && touch /etc/hummingbird/.initialized; fi && hbmain start && tail -f /dev/null"]
+    command: ["sh", "-c", "hbinit && hbstart"]
 
 networks:
   internal:
