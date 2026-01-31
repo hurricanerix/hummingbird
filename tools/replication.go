@@ -17,7 +17,7 @@ import (
 	"github.com/troubling/hummingbird/common/ring"
 	"github.com/troubling/hummingbird/containerserver"
 	"github.com/troubling/hummingbird/objectserver"
-	"github.com/uber-go/tally"
+	"github.com/uber-go/tally/v4"
 	"go.uber.org/zap"
 )
 

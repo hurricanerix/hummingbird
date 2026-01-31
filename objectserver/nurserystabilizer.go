@@ -26,7 +26,7 @@ import (
 
 	"github.com/troubling/hummingbird/common/fs"
 	"github.com/troubling/hummingbird/common/ring"
-	"github.com/uber-go/tally"
+	"github.com/uber-go/tally/v4"
 )
 
 const nurseryObjectSleep = time.Millisecond

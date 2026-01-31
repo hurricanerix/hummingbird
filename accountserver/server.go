@@ -30,15 +30,15 @@ import (
 
 	"github.com/justinas/alice"
 	"github.com/opentracing/opentracing-go"
-	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/troubling/hummingbird/common"
 	"github.com/troubling/hummingbird/common/conf"
 	"github.com/troubling/hummingbird/common/fs"
 	"github.com/troubling/hummingbird/common/srv"
 	"github.com/troubling/hummingbird/common/tracing"
 	"github.com/troubling/hummingbird/middleware"
-	"github.com/uber-go/tally"
-	promreporter "github.com/uber-go/tally/prometheus"
+	"github.com/uber-go/tally/v4"
+	promreporter "github.com/uber-go/tally/v4/prometheus"
 	"go.uber.org/zap"
 )
 
@@ -500,7 +500,7 @@ func (server *AccountServer) GetHandler(config conf.Config, metricsPrefix string
 		server.AcquireDevice,
 	)
 	router := srv.NewRouter()
-	router.Get("/metrics", prometheus.Handler())
+	router.Get("/metrics", promhttp.Handler())
 	router.Get("/loglevel", server.logLevel)
 	router.Put("/loglevel", server.logLevel)
 	router.Get("/healthcheck", commonHandlers.ThenFunc(server.HealthcheckHandler))

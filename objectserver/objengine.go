@@ -26,7 +26,7 @@ import (
 	"github.com/troubling/hummingbird/common/conf"
 	"github.com/troubling/hummingbird/common/ring"
 	"github.com/troubling/hummingbird/common/srv"
-	"github.com/uber-go/tally"
+	"github.com/uber-go/tally/v4"
 )
 
 // DriveFullError can be returned by Object.SetData and Object.Delete if the disk is too full for the operation.

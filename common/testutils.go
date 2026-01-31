@@ -5,7 +5,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/uber-go/tally"
+	"github.com/uber-go/tally/v4"
 )
 
 type testScope struct {

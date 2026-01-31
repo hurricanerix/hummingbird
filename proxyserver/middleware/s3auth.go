@@ -26,7 +26,7 @@ import (
 	"strings"
 
 	"github.com/troubling/hummingbird/common/conf"
-	"github.com/uber-go/tally"
+	"github.com/uber-go/tally/v4"
 )
 
 type S3AuthInfo struct {

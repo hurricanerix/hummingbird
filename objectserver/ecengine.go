@@ -42,7 +42,7 @@ import (
 	"github.com/troubling/hummingbird/common/ring"
 	"github.com/troubling/hummingbird/common/srv"
 	"github.com/troubling/hummingbird/common/tracing"
-	"github.com/uber-go/tally"
+	"github.com/uber-go/tally/v4"
 	"golang.org/x/net/http2"
 )
 

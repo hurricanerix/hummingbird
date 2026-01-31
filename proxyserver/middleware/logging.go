@@ -22,7 +22,7 @@ import (
 
 	"github.com/troubling/hummingbird/common/conf"
 	"github.com/troubling/hummingbird/common/srv"
-	"github.com/uber-go/tally"
+	"github.com/uber-go/tally/v4"
 )
 
 func NewRequestLogger(config conf.Section, metricsScope tally.Scope) (func(http.Handler) http.Handler, error) {

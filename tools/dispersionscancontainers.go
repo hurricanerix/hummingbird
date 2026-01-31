@@ -22,7 +22,7 @@ import (
 	"github.com/troubling/hummingbird/accountserver"
 	"github.com/troubling/hummingbird/common"
 	"github.com/troubling/hummingbird/common/ring"
-	"github.com/uber-go/tally"
+	"github.com/uber-go/tally/v4"
 	"go.uber.org/zap"
 )
 

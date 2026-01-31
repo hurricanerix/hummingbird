@@ -33,7 +33,7 @@ import (
 	"github.com/troubling/hummingbird/common/srv"
 	"github.com/troubling/hummingbird/common/tracing"
 	"github.com/troubling/hummingbird/middleware"
-	"github.com/uber-go/tally"
+	"github.com/uber-go/tally/v4"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/net/http2"

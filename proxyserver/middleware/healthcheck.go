@@ -19,7 +19,7 @@ import (
 	"net/http"
 
 	"github.com/troubling/hummingbird/common/conf"
-	"github.com/uber-go/tally"
+	"github.com/uber-go/tally/v4"
 )
 
 func NewHealthcheck(config conf.Section, metricsScope tally.Scope) (func(http.Handler) http.Handler, error) {

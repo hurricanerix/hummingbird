@@ -36,9 +36,9 @@ import (
 	"github.com/troubling/hummingbird/proxyserver/middleware"
 
 	"github.com/justinas/alice"
-	"github.com/prometheus/client_golang/prometheus"
-	"github.com/uber-go/tally"
-	promreporter "github.com/uber-go/tally/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/uber-go/tally/v4"
+	promreporter "github.com/uber-go/tally/v4/prometheus"
 	"go.uber.org/zap"
 )
 
@@ -86,7 +86,7 @@ func (server *ProxyServer) GetHandler(config conf.Config, metricsPrefix string) 
 		if op == "-" {
 			op = ""
 		}
-		router.Get(path.Join("/", op, "metrics"), prometheus.Handler())
+		router.Get(path.Join("/", op, "metrics"), promhttp.Handler())
 		router.Get(path.Join("/", op, "loglevel"), server.logLevel)
 		router.Put(path.Join("/", op, "loglevel"), server.logLevel)
 		router.Get(path.Join("/", op, "debug/pprof/:parm"), http.DefaultServeMux)
