@@ -18,7 +18,7 @@ import (
 	"github.com/troubling/hummingbird/internal/common/ring"
 	"github.com/troubling/hummingbird/internal/common/srv"
 	"github.com/troubling/hummingbird/internal/common/tracing"
-	"github.com/troubling/nectar/nectarutil"
+	"github.com/troubling/hummingbird/internal/nectar/nectarutil"
 	"go.uber.org/zap"
 	"golang.org/x/net/http2"
 )

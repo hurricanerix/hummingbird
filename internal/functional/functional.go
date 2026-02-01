@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/troubling/hummingbird/internal/common"
-	"github.com/troubling/nectar"
+	"github.com/troubling/hummingbird/internal/nectar"
 )
 
 var run = common.LooksTrue(os.Getenv("HUMMINGBIRD_FUNCTIONAL_TESTS"))

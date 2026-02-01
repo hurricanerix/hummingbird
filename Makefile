@@ -1,13 +1,17 @@
 HUMMINGBIRD_VERSION?=$(shell git describe --tags)
 HUMMINGBIRD_VERSION_NO_V?=$(shell git describe --tags | cut -d v -f 2)
 
-all: bin/hummingbird
+all: bin/hummingbird bin/nectar
 
-.PHONY: bin/hummingbird
+.PHONY: bin/hummingbird bin/nectar
 
 bin/hummingbird:
 	mkdir -p bin
 	go build -o bin/hummingbird -ldflags "-X github.com/troubling/hummingbird/common.Version=$(HUMMINGBIRD_VERSION)" github.com/troubling/hummingbird/cmd/hummingbird
+
+bin/nectar:
+	mkdir -p bin
+	go build -o bin/nectar -ldflags "-X github.com/troubling/hummingbird/common.Version=$(HUMMINGBIRD_VERSION)" github.com/troubling/hummingbird/cmd/nectar
 
 get:
 	go get -u -t $(shell go list ./... | grep -v /vendor/)

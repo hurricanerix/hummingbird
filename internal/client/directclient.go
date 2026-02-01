@@ -11,8 +11,8 @@ import (
 	"github.com/troubling/hummingbird/internal/common"
 	"github.com/troubling/hummingbird/internal/common/conf"
 	"github.com/troubling/hummingbird/internal/common/srv"
-	"github.com/troubling/nectar"
-	"github.com/troubling/nectar/nectarutil"
+	"github.com/troubling/hummingbird/internal/nectar"
+	"github.com/troubling/hummingbird/internal/nectar/nectarutil"
 )
 
 type directClient struct {

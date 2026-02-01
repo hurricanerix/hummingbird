@@ -29,7 +29,7 @@ import (
 	"time"
 
 	"github.com/troubling/hummingbird/internal/common/conf"
-	"github.com/troubling/nectar"
+	"github.com/troubling/hummingbird/internal/nectar"
 )
 
 type Object struct {

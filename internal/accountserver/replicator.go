@@ -47,7 +47,7 @@ import (
 	"github.com/troubling/hummingbird/internal/common/srv"
 	"github.com/troubling/hummingbird/internal/common/tracing"
 	"github.com/troubling/hummingbird/internal/middleware"
-	"github.com/troubling/nectar"
+	"github.com/troubling/hummingbird/internal/nectar"
 	"github.com/uber-go/tally/v4"
 	promreporter "github.com/uber-go/tally/v4/prometheus"
 	"go.uber.org/zap"

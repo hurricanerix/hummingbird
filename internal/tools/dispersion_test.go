@@ -16,7 +16,7 @@ import (
 	"github.com/troubling/hummingbird/internal/client"
 	"github.com/troubling/hummingbird/internal/common/ring"
 	"github.com/troubling/hummingbird/internal/containerserver"
-	"github.com/troubling/nectar/nectarutil"
+	"github.com/troubling/hummingbird/internal/nectar/nectarutil"
 )
 
 type FakeRing struct {

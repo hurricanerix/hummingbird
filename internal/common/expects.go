@@ -22,7 +22,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/troubling/nectar/nectarutil"
+	"github.com/troubling/hummingbird/internal/nectar/nectarutil"
 )
 
 type expectReader struct {

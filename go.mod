@@ -12,7 +12,6 @@ require (
 	github.com/prometheus/client_golang v1.23.2
 	github.com/shirou/gopsutil v3.21.11+incompatible
 	github.com/stretchr/testify v1.11.1
-	github.com/troubling/nectar v0.0.0-20180726161940-0e62d87fa1f9
 	github.com/uber-go/tally/v4 v4.1.17
 	github.com/uber/jaeger-client-go v2.30.0+incompatible
 	github.com/vaughan0/go-ini v0.0.0-20130923145212-a98ad7ee00ec

@@ -3,7 +3,7 @@ WORKDIR /src
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
-RUN make
+RUN make hummingbird
 
 FROM debian:bookworm-slim
 RUN apt update && apt install -y memcached sqlite3 tar xfsprogs && apt-get clean && rm -rf /var/lib/apt/lists/*

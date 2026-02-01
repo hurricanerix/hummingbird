@@ -37,7 +37,6 @@ import (
 	"github.com/troubling/hummingbird/internal/objectserver"
 	"github.com/troubling/hummingbird/internal/proxyserver"
 	"github.com/troubling/hummingbird/internal/tools"
-	"github.com/troubling/nectar"
 )
 
 const (
@@ -439,10 +438,6 @@ func main() {
 		fmt.Fprintln(os.Stderr, "hummingbird grep [ACCOUNT/CONTAINER/PREFIX] [SEARCH-STRING]")
 		fmt.Fprintln(os.Stderr, "  Run grep on the edge")
 		fmt.Fprintln(os.Stderr)
-		fmt.Fprintln(os.Stderr, "hummingbird nectar ...")
-		fmt.Fprintln(os.Stderr, "  Runs an embedded version of the nectar client tool.")
-		fmt.Fprintln(os.Stderr, "  Run with no parameters for help.")
-		fmt.Fprintln(os.Stderr)
 		nodesFlags.Usage()
 		fmt.Fprintln(os.Stderr)
 		andrewdFlags.Usage()
@@ -529,8 +524,6 @@ func main() {
 			fmt.Fprintln(os.Stderr, "systemd error:", err)
 			os.Exit(1)
 		}
-	case "nectar":
-		nectar.CLI(flag.Args(), nil, nil, nil)
 	default:
 		flag.Usage()
 	}
