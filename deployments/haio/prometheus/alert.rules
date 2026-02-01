@@ -1,0 +1,11 @@
+groups:
+- name: alert.rules
+  rules:
+  - alert: service_down
+    expr: up == 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      description: '{{ $labels.instance }} of job {{ $labels.job }} is down.'
+      summary: Instance {{ $labels.instance }} down

@@ -5,15 +5,49 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./deployments/haio/etc/hummingbird:/tmp/hummingbird:ro
-      - ./deployments/haio/lib/systemd/system:/lib/systemd/system:ro
-      - ./deployments/haio/root/.swift_func_excludes:/root/.swift_func_excludes:ro
-      - ./deployments/haio/usr/local/bin:/usr/local/bin:ro
+      - ./deployments/haio/haio/etc/hummingbird:/tmp/hummingbird:ro
+      - ./deployments/haio/haio/lib/systemd/system:/lib/systemd/system:ro
+      - ./deployments/haio/haio/root/.swift_func_excludes:/root/.swift_func_excludes:ro
+      - ./deployments/haio/haio/usr/local/bin:/usr/local/bin:ro
       - rings:/etc/hummingbird
       - storage:/srv/hb/1/sdb1
     networks:
       - internal
     command: ["sh", "-c", "hbinit && hbstart"]
+
+  prometheus:
+    image: docker.io/prom/prometheus:v2.53.0
+    volumes:
+      - ./deployments/haio/prometheus:/etc/prometheus:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    ports:
+      - "9090:9090"
+    networks:
+      - internal
+    depends_on:
+      - haio
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:11.0.0
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./deployments/haio/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./deployments/haio/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    networks:
+      - internal
+    restart: unless-stopped
 
 networks:
   internal:
@@ -22,3 +56,5 @@ networks:
 volumes:
   rings:
   storage:
+  prometheus_data:
+  grafana_data:
