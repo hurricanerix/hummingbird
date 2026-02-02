@@ -3,6 +3,8 @@ Hummingbird
 
 NOTE: This fork of Hummingbird is under part time development.
 
+Consider this repo/project as unstable.
+
 Development goals are as follows:
 
 * First class observability at any scale
