@@ -6,7 +6,7 @@ NOTE: This fork of Hummingbird is under part time development.
 Development goals are as follows:
 
 * First class observability at any scale
-* Zero trust architecture
+* Security by Default (Zero trust)
 * Support commodity/NAS hardware for home & small business use cases
 * Support Kubernetes native design for medium to large businesses
 * Shift the architecture as needed
