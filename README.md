@@ -7,12 +7,12 @@ Consider this repo/project as unstable.
 
 Development goals are as follows:
 
-* First class observability at any scale
-* Security by Default (Zero trust)
-* Support commodity/NAS hardware for home & small business use cases
-* Support Kubernetes native design for medium to large businesses
-* Shift the architecture as needed
-  * No requirement to remain comaptible with existing Swift/Hummingbird deployments
+- [ ] First class observability at any scale
+- [ ] Security by Default (Zero trust)
+- [ ] Support commodity/NAS hardware for home & small business use cases
+- [ ] Support Kubernetes native design for medium to large businesses
+- Shift the architecture as needed
+  - No requirement to remain comaptible with existing Swift/Hummingbird deployments
 
 ---
 
