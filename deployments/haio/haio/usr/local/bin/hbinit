@@ -19,6 +19,7 @@ fi
 hbrings
 hbreset
 
+mkdir -p /etc/hummingbird
 touch /etc/hummingbird/.initialized
 
 # hbmain start

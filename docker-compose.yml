@@ -2,13 +2,14 @@ services:
   haio:
     build:
       dockerfile: ./Dockerfile
+    privileged: true
     ports:
       - "8080:8080"
     volumes:
-      - ./deployments/haio/haio/etc/hummingbird:/tmp/hummingbird:ro
-      - ./deployments/haio/haio/lib/systemd/system:/lib/systemd/system:ro
-      - ./deployments/haio/haio/root/.swift_func_excludes:/root/.swift_func_excludes:ro
-      - ./deployments/haio/haio/usr/local/bin:/usr/local/bin:ro
+      - ./deployments/haio/haio/etc/hummingbird:/tmp/hummingbird:ro,z
+      - ./deployments/haio/haio/lib/systemd/system:/lib/systemd/system:ro,z
+      - ./deployments/haio/haio/root/.swift_func_excludes:/root/.swift_func_excludes:ro,z
+      - ./deployments/haio/haio/usr/local/bin:/usr/local/bin:ro,z
       - rings:/etc/hummingbird
       - storage:/srv/hb/1/sdb1
     networks:
@@ -18,7 +19,7 @@ services:
   prometheus:
     image: docker.io/prom/prometheus:v2.53.0
     volumes:
-      - ./deployments/haio/prometheus:/etc/prometheus:ro
+      - ./deployments/haio/prometheus:/etc/prometheus:ro,z
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -39,8 +40,8 @@ services:
       - "3000:3000"
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./deployments/haio/grafana/provisioning:/etc/grafana/provisioning:ro
-      - ./deployments/haio/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - ./deployments/haio/grafana/provisioning:/etc/grafana/provisioning:ro,z
+      - ./deployments/haio/grafana/dashboards:/var/lib/grafana/dashboards:ro,z
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
