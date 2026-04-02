@@ -3,7 +3,11 @@ HUMMINGBIRD_VERSION_NO_V?=$(shell git describe --tags | cut -d v -f 2)
 
 all: bin/hummingbird bin/nectar
 
-.PHONY: bin/hummingbird bin/nectar
+.PHONY: hummingbird nectar bin/hummingbird bin/nectar
+
+hummingbird: bin/hummingbird
+
+nectar: bin/nectar
 
 bin/hummingbird:
 	mkdir -p bin
